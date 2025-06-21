@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
+
+import { Toaster } from "sonner"
 import { fontMono, fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { Providers } from "./providers"
@@ -24,6 +26,7 @@ export default function RootLayout({
         )}
       >
         <Providers>{children}</Providers>
+        <Toaster richColors />
       </body>
     </html>
   )
