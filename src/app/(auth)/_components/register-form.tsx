@@ -18,19 +18,20 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
-import { loginWithEmailAndPassword } from "@/lib/actions/auth"
-import { loginSchema } from "@/lib/validators/auth"
+import { registerWithEmailAndPassword } from "@/lib/actions/auth"
+import { registerSchema } from "@/lib/validators/auth"
 
-type Inputs = z.infer<typeof loginSchema>
+type Inputs = z.infer<typeof registerSchema>
 
-export function LoginForm() {
+export function RegisterForm() {
   const router = useRouter()
 
   const [loading, setLoading] = React.useState(false)
 
   const form = useForm<Inputs>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(registerSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
@@ -39,7 +40,7 @@ export function LoginForm() {
   async function onSubmit(inputs: Inputs) {
     setLoading(true)
 
-    const { data, error } = await loginWithEmailAndPassword(inputs)
+    const { data, error } = await registerWithEmailAndPassword(inputs)
 
     if (error) {
       toast.error(error)
@@ -55,6 +56,19 @@ export function LoginForm() {
   return (
     <Form {...form}>
       <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nome Completo</FormLabel>
+              <FormControl>
+                <Input type="text" placeholder="Rodney Mullen" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"
@@ -90,8 +104,8 @@ export function LoginForm() {
             <Loader2 className="mr-2 size-4 animate-spin" aria-hidden="true" />
           ) : (
             <>
-              Entrar
-              <span className="sr-only">Entrar</span>
+              Continuar
+              <span className="sr-only">Continuar</span>
             </>
           )}
         </Button>

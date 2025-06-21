@@ -13,3 +13,12 @@ export const loginSchema = z.object({
       message: "A senha deve ter no máximo 100 caracteres",
     }),
 })
+
+export const registerSchema = loginSchema.extend({
+  name: z
+    .string({ message: "Por favor, insira seu nome completo" })
+    .min(4, { message: "O nome é obrigatório" })
+    .refine(value => value.trim().includes(" "), {
+      message: "Por favor, insira seu nome completo",
+    }),
+})
