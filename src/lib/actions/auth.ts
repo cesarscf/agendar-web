@@ -3,7 +3,6 @@
 import { HTTPError } from "ky"
 import { cookies } from "next/headers"
 import type { z } from "zod"
-
 import { login } from "@/http/login"
 import { register } from "@/http/register"
 import type { loginSchema, registerSchema } from "@/lib/validators/auth"
