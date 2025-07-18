@@ -1,3 +1,4 @@
+import { AxiosError } from "axios"
 import { api } from "./api-client"
 
 interface RegisterRequest {
@@ -10,16 +11,30 @@ interface RegisterResponse {
   token: string
 }
 
-export async function register({ email, password, name }: RegisterRequest) {
-  const result = await api
-    .post("register", {
-      json: {
-        name,
-        email,
-        password,
-      },
+export async function register({ name, email, password }: RegisterRequest) {
+  try {
+    const response = await api.post<RegisterResponse>("/register", {
+      name,
+      email,
+      password,
     })
-    .json<RegisterResponse>()
 
-  return result
+    return {
+      data: response.data,
+      error: null,
+    }
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      const message = err.message
+      return {
+        data: null,
+        error: message,
+      }
+    }
+
+    return {
+      data: null,
+      error: "Erro inesperado, tente novamente em alguns minutos.",
+    }
+  }
 }

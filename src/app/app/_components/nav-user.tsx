@@ -1,7 +1,6 @@
 "use client"
 
 import { BadgeCheck, ChevronsUpDown, CreditCard, LogOut } from "lucide-react"
-import { useAuth } from "@/app/providers/auth-context"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -18,6 +17,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useAuth } from "@/providers/auth-context"
 
 export function NavUser() {
   const auth = useAuth()

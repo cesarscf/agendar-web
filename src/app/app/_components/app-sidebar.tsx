@@ -17,7 +17,6 @@ import { useSelectedLayoutSegments } from "next/navigation"
 import type * as React from "react"
 import { NavMain } from "@/app/app/_components/nav-main"
 import { NavUser } from "@/app/app/_components/nav-user"
-import { useAuth } from "@/app/providers/auth-context"
 import {
   Sidebar,
   SidebarContent,
@@ -28,12 +27,12 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { useEstablishment } from "@/hooks/data/establishment/use-establishment"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const segments = useSelectedLayoutSegments()
 
-  const auth = useAuth()
-  const establishment = auth.partner?.partner.establishments[0]
+  const { data: establishment } = useEstablishment()
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -42,14 +41,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a
-                href={`/${establishment?.id}`}
+                href={`/${establishment?.slug}`}
                 target="_blank"
                 rel="noreferrer"
               >
-                {!establishment?.name ? (
+                {establishment?.logoUrl ? (
                   <div className="relative h-8 w-8 overflow-hidden rounded-md">
                     <Image
-                      src={establishment?.name ?? ""}
+                      src={establishment?.logoUrl}
                       alt={`${establishment?.name} logo`}
                       fill
                       className="object-cover"
@@ -65,7 +64,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="truncate font-semibold">
                     {establishment?.name}
                   </span>
-                  <span className="truncate text-xs">{establishment?.id}</span>
+                  <span className="truncate text-xs">
+                    {establishment?.slug}
+                  </span>
                 </div>
               </a>
             </SidebarMenuButton>

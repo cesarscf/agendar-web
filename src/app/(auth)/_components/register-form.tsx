@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { registerWithEmailAndPassword } from "@/lib/actions/auth"
-import { registerSchema } from "@/lib/validators/auth"
+import { registerSchema } from "@/lib/validations/auth"
 
 type Inputs = z.infer<typeof registerSchema>
 

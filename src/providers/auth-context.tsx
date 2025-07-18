@@ -4,7 +4,7 @@ import { deleteCookie, getCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
 import * as React from "react"
 import { getPartner } from "@/http/get-partner"
-import type { Partner } from "@/lib/validators/partner"
+import type { Partner } from "@/lib/validations/partner"
 
 export interface AuthContextType {
   isAuthenticated: boolean

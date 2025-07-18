@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuth } from "@/app/providers/auth-context"
+import { useAuth } from "@/providers/auth-context"
 import { Button } from "./ui/button"
 
 export function Logout() {
