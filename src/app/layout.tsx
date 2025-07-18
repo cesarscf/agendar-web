@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
+import { Toaster } from "@/components/ui/sonner"
 import { fontMono, fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         )}
       >
         {children}
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   )
