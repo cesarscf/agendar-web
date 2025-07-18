@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
-
+import { Logout } from "@/components/logout"
 import { getSession } from "@/lib/session"
 
 export default async function Page() {
@@ -12,6 +12,7 @@ export default async function Page() {
   return (
     <div>
       <h1>{session.partner.name}</h1>
+      <Logout />
     </div>
   )
 }
