@@ -24,6 +24,15 @@ export const updateEstablishmentSchema = establishmentSchema.partial().extend({
   slug: z.string().min(4, "Slug obrigatório"),
 })
 
+export const availabilitySchema = z.object({
+  weekday: z.number().int().min(0).max(6),
+  opensAt: z.string().regex(/^\d{2}:\d{2}$/),
+  closesAt: z.string().regex(/^\d{2}:\d{2}$/),
+  breakStart: z.string().optional(),
+  breakEnd: z.string().optional(),
+})
+
+export type Availability = z.infer<typeof availabilitySchema>
 export type Establishment = z.infer<typeof establishmentSchema>
 export type CreateEstablishmentRequest = z.infer<
   typeof createEstablishmentSchema
