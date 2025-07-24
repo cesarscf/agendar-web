@@ -8,6 +8,8 @@ export const partnerSchema = z.object({
     z.object({
       id: z.string(),
       name: z.string(),
+      logoUrl: z.string().nullable(),
+      slug: z.string().nullable(),
     })
   ),
   subscriptions: z.array(
@@ -24,4 +26,5 @@ export const partnerSchemaResponse = z.object({
   partner: partnerSchema,
 })
 
+export type Session = z.infer<typeof partnerSchema>
 export type Partner = z.infer<typeof partnerSchemaResponse>

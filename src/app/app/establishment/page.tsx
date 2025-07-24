@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
-
 import { auth } from "@/lib/auth"
+import { EstablishmentPageClient } from "./_components/establishment-page-client"
 
 export default async function Page() {
   const { session } = await auth()
@@ -9,9 +9,5 @@ export default async function Page() {
     throw redirect("/login")
   }
 
-  return (
-    <div>
-      <h1>{session.name}</h1>
-    </div>
-  )
+  return <EstablishmentPageClient />
 }

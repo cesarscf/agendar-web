@@ -1,29 +1,10 @@
 import { AxiosError } from "axios"
+import type { Partner } from "@/lib/validations/partner"
 import { api } from "./api-client"
-
-export type Partner = {
-  id: string
-  name: string
-  email: string
-  establishments: {
-    id: string
-    name: string
-  }[]
-  subscriptions: {
-    id: string
-    status: string
-    endedAt: Date
-    createdAt: Date
-  }[]
-}
-
-interface GetPartnerResponse {
-  partner: Partner
-}
 
 export async function getPartner() {
   try {
-    const response = await api.get<GetPartnerResponse>("/partner")
+    const response = await api.get<Partner>("/partner")
 
     return {
       data: response.data,

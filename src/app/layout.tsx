@@ -4,7 +4,6 @@ import { Toaster } from "@/components/ui/sonner"
 import { fontMono, fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { Providers } from "@/providers"
-import { AuthProvider } from "../providers/auth-context"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,10 +25,8 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <AuthProvider>
-            {children}
-            <Toaster richColors position="top-center" />
-          </AuthProvider>
+          {children}
+          <Toaster richColors position="top-center" />
         </Providers>
       </body>
     </html>

@@ -28,7 +28,7 @@ export async function login({ email, password }: LoginRequest) {
         error: err.message,
       }
     }
-    console.log(err)
+
     return {
       data: null,
       error: "Erro inesperado, tente novamente em alguns minutos.",

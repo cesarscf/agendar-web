@@ -1,17 +1,14 @@
-"use server"
-
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-
 import { getPartner } from "@/http/get-partner"
 
-export async function isLoggedIn() {
+export async function isAuthenticated() {
   const awaitedCookies = await cookies()
 
   return !!awaitedCookies.get("token")?.value
 }
 
-export async function getSession() {
+export async function auth() {
   const awaitedCookies = await cookies()
 
   const token = awaitedCookies.get("token")?.value
@@ -20,16 +17,11 @@ export async function getSession() {
     redirect("/login")
   }
 
-  const { partner } = await getPartner()
+  try {
+    const { data } = await getPartner()
 
-  return {
-    session: token ?? null,
-    partner: partner ?? null,
-  }
-}
+    return { session: data?.partner, token }
+  } catch {}
 
-export async function signOut() {
-  const awaitedCookies = await cookies()
-
-  awaitedCookies.delete("token")
+  redirect("/api/auth/sign-out")
 }

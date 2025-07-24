@@ -20,6 +20,8 @@ export const createEstablishmentSchema = establishmentSchema.omit({ id: true })
 
 export const updateEstablishmentSchema = establishmentSchema.partial().extend({
   id: z.string().min(1, "ID obrigatório"),
+  name: z.string().min(1, "Nome obrigatório"),
+  slug: z.string().min(4, "Slug obrigatório"),
 })
 
 export type Establishment = z.infer<typeof establishmentSchema>

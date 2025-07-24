@@ -1,6 +1,5 @@
 "use client"
 
-// import { OnboardingChecklist } from "./onboarding-checklist";
 import {
   Calendar,
   Command,
@@ -27,12 +26,18 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { useEstablishment } from "@/hooks/data/establishment/use-establishment"
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+import type { Session } from "@/lib/validations/partner"
+
+export function AppSidebar({
+  session,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  session: Session
+}) {
   const segments = useSelectedLayoutSegments()
 
-  const { data: establishment } = useEstablishment()
+  const establishment = session.establishments[0]
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -41,7 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a
-                href={`/${establishment?.slug}`}
+                href={`/${establishment?.name}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -74,12 +79,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {/* {!isOnboardingComplete && (
-          <>
-            <OnboardingChecklist onboardingCheck={onboardingCheck} />
-            <SidebarSeparator />
-          </>
-        )} */}
         <NavMain
           items={[
             {
@@ -126,15 +125,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
             {
               title: "Loja",
-              url: "/app/store",
+              url: "/app/establishment",
               icon: Store,
-              isActive: segments.includes("store"),
+              isActive: segments.includes("establishment"),
             },
           ]}
         />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser />
+        <NavUser session={session} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
