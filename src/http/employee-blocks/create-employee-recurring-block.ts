@@ -21,9 +21,8 @@ export async function createEmployeeRecurringBlock(
 
     const result = await api.post<EmployeeRecurringBlock>(
       `/employees/${inputs.employeeId}/recurring-blocks`,
-      {
-        payload,
-      }
+
+      payload
     )
 
     return {

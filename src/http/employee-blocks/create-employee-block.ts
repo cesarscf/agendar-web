@@ -13,16 +13,16 @@ export async function createEmployeeBlock(
 ) {
   try {
     const payload = {
-      startsAt: inputs.startsAt,
-      endsAt: inputs.endsAt,
+      startsAt: inputs.startsAt.toISOString(),
+      endsAt: inputs.endsAt.toISOString(),
       reason: inputs.reason,
     }
 
+    console.log(payload)
+
     const result = await api.post<EmployeeBlock>(
       `/employees/${inputs.employeeId}/blocks`,
-      {
-        payload,
-      }
+      payload
     )
 
     return {
