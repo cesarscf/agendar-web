@@ -1,6 +1,6 @@
 "use client"
 
-import { Package } from "lucide-react"
+import { Hammer, Package } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -14,11 +14,11 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { usePackages } from "@/hooks/data/packages/use-packages"
+import { useServices } from "@/hooks/data/service/use-services"
 
-export function PackagesPageClient() {
-  const { data } = usePackages()
+export function ServicesPageClient() {
   const router = useRouter()
+  const { data } = useServices()
 
   return (
     <>
@@ -26,43 +26,43 @@ export function PackagesPageClient() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage>Pacotes de serviços</BreadcrumbPage>
+              <BreadcrumbPage>Serviços</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
         <Button className="ml-auto" asChild>
-          <Link href="/app/packages/new">Novo Pacote</Link>
+          <Link href="/app/services/new">Novo Serviço</Link>
         </Button>
       </AppHeader>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {data?.map(pkg => (
+          {data?.map(service => (
             <Card
-              key={pkg.id}
+              key={service.id}
               className="cursor-pointer hover:bg-accent/60 transition-shadow duration-200"
               onClick={() => {
-                router.push(`/app/packages/${pkg.id}`)
+                router.push(`/app/services/${service.id}`)
               }}
             >
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    {pkg.image ? (
+                    {service.image ? (
                       <div className="relative size-14 overflow-hidden rounded">
                         <Image
-                          src={pkg.image || "/placeholder.svg"}
-                          alt={pkg.name}
+                          src={service.image || "/placeholder.svg"}
+                          alt={service.name}
                           fill
                           className="object-cover"
                         />
                       </div>
                     ) : (
-                      <Package className="h-5 w-5 text-primary" />
+                      <Hammer className="h-5 w-5 text-primary" />
                     )}
-                    <CardTitle className="text-lg">{pkg.name}</CardTitle>
+                    <CardTitle className="text-lg">{service.name}</CardTitle>
                   </div>
-                  <Badge variant={pkg.active ? "default" : "secondary"}>
-                    {pkg.active ? "Ativo" : "Inativo"}
+                  <Badge variant={service.active ? "default" : "secondary"}>
+                    {service.active ? "Ativo" : "Inativo"}
                   </Badge>
                 </div>
               </CardHeader>
@@ -71,13 +71,13 @@ export function PackagesPageClient() {
                   <div className="text-sm text-muted-foreground">
                     Preço:{" "}
                     <span className="font-medium text-foreground">
-                      {pkg.price}
+                      {service.price}
                     </span>
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Comissão:{" "}
+                    Duração:{" "}
                     <span className="font-medium text-foreground">
-                      {pkg.commission}
+                      {service.durationInMinutes}
                     </span>
                   </div>
                 </div>
